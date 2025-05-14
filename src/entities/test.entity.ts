@@ -1,40 +1,28 @@
+// test.entity.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseEntity } from './base.entity';
 import { Group } from './group.entity';
+import { Question } from './question.entity';
 import { Types } from 'mongoose';
-import { Type } from 'class-transformer';
-
-class QuestionChoice {
-  @Prop({ required: true })
-  title: string;
-
-  @Prop({ default: false })
-  isCorrect: boolean;
-}
-
-class TestQuestion {
-  @Prop({ required: true })
-  title: string;
-
-  @Prop({ required: true })
-  type: string;
-
-  @Prop({ required: true, type: [QuestionChoice] })
-  @Type(() => QuestionChoice)
-  choices: QuestionChoice[];
-
-  @Prop({ required: true })
-  points: number;
-}
 
 @Schema({ collection: 'test' })
 export class Test extends BaseEntity {
-  @Prop({ required: true, type: Types.ObjectId, ref: Group.name })
+  @Prop({ 
+    type: Types.ObjectId, 
+    ref: Group.name, 
+    required: true 
+  })
   group: Group;
 
-  @Prop({ type: [TestQuestion], default: () => [] })
-  @Type(() => TestQuestion)
-  questions: TestQuestion[];
+  @Prop([{ 
+    type: [Types.ObjectId], 
+    ref: Question.name, 
+    required: true 
+  }])
+  questions: Question[];
+
+  @Prop({ default: Date.now })
+  scheduledAt: Date;
 }
 
 export const TestSchema = SchemaFactory.createForClass(Test);

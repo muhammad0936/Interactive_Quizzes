@@ -9,7 +9,8 @@ import { User, UserSchema } from 'src/entities/user.entity';
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  controllers: [UserController],
   providers: [UserService, UserRepository],
+  controllers: [UserController],
+  exports: [UserRepository],
 })
 export class UserModule {}
