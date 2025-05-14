@@ -7,7 +7,9 @@ import { BaseRepository } from '../../common/base.repository';
 
 @Injectable()
 export class MaterialRepository extends BaseRepository<Material> {
-  constructor(@InjectModel(Material.name) private readonly materialModel: Model<Material>) {
+  constructor(
+    @InjectModel(Material.name) private readonly materialModel: Model<Material>,
+  ) {
     super(materialModel);
   }
 

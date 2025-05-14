@@ -1,8 +1,10 @@
 // src/config/multer.config.ts
+import { registerAs } from '@nestjs/config';
+import { MulterModuleOptions } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 
-export const multerConfig = {
+export const multerConfig: MulterModuleOptions = {
   storage: diskStorage({
     destination: './uploads',
     filename: (req, file, callback) => {
@@ -13,3 +15,5 @@ export const multerConfig = {
     },
   }),
 };
+
+export default registerAs('multer', () => multerConfig);

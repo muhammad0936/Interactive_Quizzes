@@ -14,16 +14,32 @@ import { AdminModule } from './modules/admin/admin.module';
 import { AttachRoleMiddleware } from './middlewares/attach-user-role.middleware';
 import { JwtService } from '@nestjs/jwt';
 
+import mongooseConfig from './config/mongoose.config';
+import { ConfigModule } from '@nestjs/config';
+import multerConfig from './config/multer.config';
+
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://user:12345@cluster0.1o4mdx1.mongodb.net/interactivequiz?retryWrites=true&w=majority'),UserModule, QuestionsModule, TestsModule, GroupsModule, StudentsModule, MaterialsModule, TestResultsModule, TeachersModule, AdminModule],
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [mongooseConfig, multerConfig],
+    }),
+    MongooseModule.forRootAsync(mongooseConfig.asProvider()),
+    UserModule,
+    QuestionsModule,
+    TestsModule,
+    GroupsModule,
+    StudentsModule,
+    MaterialsModule,
+    TestResultsModule,
+    TeachersModule,
+    AdminModule,
+  ],
   controllers: [AppController],
   providers: [AppService, JwtService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AttachRoleMiddleware)
-      .forRoutes('*');
+    consumer.apply(AttachRoleMiddleware).forRoutes('*');
   }
 }

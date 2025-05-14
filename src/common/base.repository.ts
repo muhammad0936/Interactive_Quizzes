@@ -128,11 +128,9 @@ export class BaseRepository<
   async create(doc: AnyKeys<T>) {
     doc = this.prepareData(doc);
     const model = await this.entityModel.create(doc);
-    const object = model.toObject();
-    delete object?.password;
-    delete object?.__v;
-    return this.cast(object);
+    return this.cast(model.toObject());
   }
+
   async updateOne(query: FilterQuery<T> = {}, doc: UpdateQuery<T>) {
     query = this.prepareQuery(query);
     doc = this.prepareData(doc);
