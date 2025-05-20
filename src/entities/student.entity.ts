@@ -1,16 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { User } from './user.entity';
-import { UserType } from './enums/user-type.enum';
+import { BaseEntity } from './base.entity';
 
-@Schema({ collection: 'user' })
-export class Student extends User {
-  @Prop({ required: true, type: String, enum: UserType })
-  userType = UserType.STUDENT;
+@Schema()
+export class Student extends BaseEntity {
+  @Prop()
+  name: string;
 
-  @Prop({ required: true })
-  year: number;
-
-  @Prop({ required: true, index: true })
+  @Prop()
   studentNumber: string;
 }
 

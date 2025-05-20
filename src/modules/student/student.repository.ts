@@ -1,4 +1,4 @@
-// questions/repository/question.repository.ts
+// students/repository/student.repository.ts
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -7,7 +7,9 @@ import { BaseRepository } from '../../common/base.repository';
 
 @Injectable()
 export class StudentRepository extends BaseRepository<Student> {
-  constructor(@InjectModel(Student.name) private readonly studentModel: Model<Student>) {
+  constructor(
+    @InjectModel(Student.name) private readonly studentModel: Model<Student>,
+  ) {
     super(studentModel);
   }
 
