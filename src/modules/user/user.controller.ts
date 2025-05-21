@@ -6,13 +6,17 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from 'src/entities/user.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { multerConfig } from '../../config/multer.config';
 
 @Controller('user')
+@UseInterceptors(FileInterceptor('file', multerConfig))
 export class UserController<T extends User> {
   constructor(private readonly userService: UserService<T>) {}
 

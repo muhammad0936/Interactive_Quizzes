@@ -11,13 +11,13 @@ export class Group extends BaseEntity {
   num: Number;
 
   @Prop({ required: true, type: Types.ObjectId, ref: Teacher.name })
-  teacher: Teacher;
-  
+  teacher: Types.ObjectId;
+
   @Prop({ required: true, type: Types.ObjectId, ref: Material.name })
-  material: Material;
+  material: Types.ObjectId;
 
   @Prop({ required: true, type: [Types.ObjectId], ref: Student.name })
-  students: Student[];
+  students: Types.ObjectId[];
 }
 
 export const GroupSchema = SchemaFactory.createForClass(Group);

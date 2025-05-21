@@ -24,7 +24,6 @@ export class UserRepository<T extends User> extends BaseRepository<T> {
       .findOne({ email })
       .select('+password')
       .exec();
-
     this.assertFound(user);
     return this.cast(user!.toObject());
   }

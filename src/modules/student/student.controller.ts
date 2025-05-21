@@ -6,12 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
 } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
-
+import { FileInterceptor } from '@nestjs/platform-express';
+import { multerConfig } from '../../config/multer.config';
 @Controller('student')
+@UseInterceptors(FileInterceptor('file', multerConfig))
 export class StudentController {
   constructor(private readonly studentService: StudentService) {}
 
