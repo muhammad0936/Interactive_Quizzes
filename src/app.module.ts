@@ -16,6 +16,7 @@ import { JwtService } from '@nestjs/jwt';
 import mongooseConfig from './config/mongoose.config';
 import { ConfigModule } from '@nestjs/config';
 import { StudentModule } from './modules/student/student.module';
+import { CourseModule } from './modules/course/course.module';
 import multerConfig from './config/multer.config';
 
 @Module({
@@ -34,6 +35,7 @@ import multerConfig from './config/multer.config';
     TeachersModule,
     AdminModule,
     StudentModule,
+    CourseModule,
   ],
   controllers: [AppController],
   providers: [AppService, JwtService],

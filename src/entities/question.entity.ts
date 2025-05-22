@@ -16,10 +16,13 @@ export class Question extends BaseEntity {
   @Prop({ required: true })
   text: string;
 
-  @Prop({ 
-    required: true, 
-    type: String, 
-    enum: QuestionType 
+  @Prop()
+  isMath?: boolean;
+
+  @Prop({
+    required: true,
+    type: String,
+    enum: QuestionType,
   })
   type: QuestionType;
 
