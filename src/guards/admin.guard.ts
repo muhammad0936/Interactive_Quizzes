@@ -1,5 +1,10 @@
 // guards/admin.guard.ts
-import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  ForbiddenException,
+} from '@nestjs/common';
 import { UserType } from '../entities/enums/user-type.enum';
 import { User } from 'src/entities/user.entity';
 

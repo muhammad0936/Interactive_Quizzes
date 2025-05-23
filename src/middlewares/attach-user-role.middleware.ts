@@ -20,15 +20,17 @@ export class AttachRoleMiddleware implements NestMiddleware {
     const token = authHeader.split(' ')[1]; // Bearer <token>
 
     try {
-      const payload = this.jwtService.verify(token, { secret: 'thisismysecretkey' });
-      const {userId, email, role} = payload;
+      const payload = this.jwtService.verify(token, {
+        secret: 'thisismysecretkey',
+      });
+      const { userId, email, role } = payload;
 
       const user = await this.userRepository.findOneById(userId);
       if (!user) return next();
 
       req.role = user.userType;
     } catch (error) {
-    console.error('JWT error:', error);
+      console.error('JWT error:', error);
     }
     next();
   }

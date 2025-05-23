@@ -7,7 +7,9 @@ import { BaseRepository } from '../../common/base.repository';
 
 @Injectable()
 export class GroupRepository extends BaseRepository<Group> {
-  constructor(@InjectModel(Group.name) private readonly groupModel: Model<Group>) {
+  constructor(
+    @InjectModel(Group.name) private readonly groupModel: Model<Group>,
+  ) {
     super(groupModel);
   }
 

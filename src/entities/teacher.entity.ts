@@ -6,7 +6,6 @@ import { UserType } from './enums/user-type.enum';
 export class Teacher extends User {
   @Prop({ required: true, type: String, enum: UserType })
   userType = UserType.TEACHER;
-  
 }
 
 export const TeacherSchema = SchemaFactory.createForClass(Teacher);

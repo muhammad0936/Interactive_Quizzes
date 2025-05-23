@@ -6,10 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
+import { FindCourseDto } from './dto/find-course.dto';
 
 @Controller('course')
 export class CourseController {
@@ -21,8 +23,8 @@ export class CourseController {
   }
 
   @Get()
-  findAll() {
-    return this.courseService.findAll();
+  findAll(@Query() query: FindCourseDto) {
+    return this.courseService.findAll(query);
   }
 
   @Get(':id')

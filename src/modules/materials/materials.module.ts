@@ -6,8 +6,12 @@ import { Material, MaterialSchema } from 'src/entities/material.entity';
 import { MaterialRepository } from './materials.repository';
 
 @Module({
-  imports: [MongooseModule.forFeature([{name: Material.name, schema: MaterialSchema}])],
+  imports: [
+    MongooseModule.forFeature([
+      { name: Material.name, schema: MaterialSchema },
+    ]),
+  ],
   providers: [MaterialsService, MaterialRepository],
-  controllers: [MaterialsController]
+  controllers: [MaterialsController],
 })
 export class MaterialsModule {}

@@ -7,24 +7,24 @@ import { Types } from 'mongoose';
 
 @Schema({ collection: 'test_result' })
 export class TestResult extends BaseEntity {
-  @Prop({ 
-    type: Types.ObjectId, 
-    ref: Student.name, 
-    required: true 
+  @Prop({
+    type: Types.ObjectId,
+    ref: Student.name,
+    required: true,
   })
   student: Student;
 
-  @Prop({ 
-    type: Types.ObjectId, 
-    ref: Test.name, 
-    required: true 
+  @Prop({
+    type: Types.ObjectId,
+    ref: Test.name,
+    required: true,
   })
   test: Test;
 
-  @Prop({ 
-    required: true, 
-    min: 0, 
-    max: 100 
+  @Prop({
+    required: true,
+    min: 0,
+    max: 100,
   })
   scorePercentage: number;
 

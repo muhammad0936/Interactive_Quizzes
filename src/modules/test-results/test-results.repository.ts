@@ -7,7 +7,10 @@ import { BaseRepository } from '../../common/base.repository';
 
 @Injectable()
 export class TestResultRepository extends BaseRepository<TestResult> {
-  constructor(@InjectModel(TestResult.name) private readonly testResultModel: Model<TestResult>) {
+  constructor(
+    @InjectModel(TestResult.name)
+    private readonly testResultModel: Model<TestResult>,
+  ) {
     super(testResultModel);
   }
 

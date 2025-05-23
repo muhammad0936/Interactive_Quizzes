@@ -7,18 +7,20 @@ import { Types } from 'mongoose';
 
 @Schema({ collection: 'test' })
 export class Test extends BaseEntity {
-  @Prop({ 
-    type: Types.ObjectId, 
-    ref: Group.name, 
-    required: true 
+  @Prop({
+    type: Types.ObjectId,
+    ref: Group.name,
+    required: true,
   })
   group: Group;
 
-  @Prop([{ 
-    type: [Types.ObjectId], 
-    ref: Question.name, 
-    required: true 
-  }])
+  @Prop([
+    {
+      type: [Types.ObjectId],
+      ref: Question.name,
+      required: true,
+    },
+  ])
   questions: Question[];
 
   @Prop({ default: Date.now })

@@ -1,4 +1,4 @@
-export class CreateMaterialDto{
+export class CreateMaterialDto {
   name: string;
   year: number;
 }

@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { TeacherRepository } from './teachers.repository';
 import { AdminGuard } from '../../guards/admin.guard';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
@@ -11,22 +22,22 @@ import { multerConfig } from '../../config/multer.config';
 @Controller('teachers')
 @UseInterceptors(FileInterceptor('file', multerConfig))
 export class TeachersController {
-  constructor( private readonly teachersService: TeachersService){}
+  constructor(private readonly teachersService: TeachersService) {}
 
   @Post()
   @UseGuards(AdminGuard)
-  async createTeacher(@Body() teacherData: CreateTeacherDto){
+  async createTeacher(@Body() teacherData: CreateTeacherDto) {
     return this.teachersService.createTeacher(teacherData);
   }
 
   @Delete(':id')
   @UseGuards(AdminGuard)
-  async deleteTeacher(@Param() id: string){
+  async deleteTeacher(@Param() id: string) {
     this.teachersService.removeById(id);
-    return {message: "Teacher deleted."}
+    return { message: 'Teacher deleted.' };
   }
   @Get()
-  async getTeachers(@Query() query:FilterQuery<Teacher>){
+  async getTeachers(@Query() query: FilterQuery<Teacher>) {
     return this.teachersService.getTeachers(query);
-  } 
+  }
 }

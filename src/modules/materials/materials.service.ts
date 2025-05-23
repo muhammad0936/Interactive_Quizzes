@@ -9,20 +9,23 @@ import { FilterQuery } from 'mongoose';
 export class MaterialsService {
   constructor(private readonly materialRepository: MaterialRepository) {}
 
-  async createMaterial(materialData: CreateMaterialDto): Promise<Material>{
+  async createMaterial(materialData: CreateMaterialDto): Promise<Material> {
     return this.materialRepository.create(materialData);
   }
 
-  async updateMaterial(materialId: string, materialData: UpdateMaterialDto): Promise<Material>{
-    return this.materialRepository.updateOneById(materialId, materialData)
+  async updateMaterial(
+    materialId: string,
+    materialData: UpdateMaterialDto,
+  ): Promise<Material> {
+    return this.materialRepository.updateOneById(materialId, materialData);
   }
 
-  async deleteMaterial(materialId: string): Promise<Boolean>{
+  async deleteMaterial(materialId: string): Promise<Boolean> {
     this.materialRepository.deleteOneById(materialId);
     return true;
   }
 
-  async getMaterials(query: FilterQuery<Material>): Promise<Material[]>{
-    return this.materialRepository.find(query)
+  async getMaterials(query: FilterQuery<Material>): Promise<Material[]> {
+    return this.materialRepository.find(query);
   }
 }

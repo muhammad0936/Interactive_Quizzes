@@ -7,7 +7,9 @@ import { BaseRepository } from '../../common/base.repository';
 
 @Injectable()
 export class TeacherRepository extends BaseRepository<Teacher> {
-  constructor(@InjectModel(Teacher.name) private readonly teacherModel: Model<Teacher>) {
+  constructor(
+    @InjectModel(Teacher.name) private readonly teacherModel: Model<Teacher>,
+  ) {
     super(teacherModel);
   }
 
@@ -15,7 +17,7 @@ export class TeacherRepository extends BaseRepository<Teacher> {
   async findByType(type: string): Promise<Teacher[]> {
     return this.teacherModel.find({ type }).exec();
   }
-  async findTeachers(query: FilterQuery<Teacher>): Promise<Teacher[]>{
+  async findTeachers(query: FilterQuery<Teacher>): Promise<Teacher[]> {
     return this.teacherModel.find(query);
   }
 }

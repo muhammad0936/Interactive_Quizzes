@@ -1,7 +1,14 @@
 // base.service.ts
 import { Injectable } from '@nestjs/common';
 import { BaseRepository } from './base.repository';
-import { DeleteResult, FilterQuery, InferId, QueryWithHelpers, UpdateQuery, UpdateWriteOpResult } from 'mongoose';
+import {
+  DeleteResult,
+  FilterQuery,
+  InferId,
+  QueryWithHelpers,
+  UpdateQuery,
+  UpdateWriteOpResult,
+} from 'mongoose';
 import { BaseEntity } from 'src/entities/base.entity';
 
 @Injectable()
@@ -16,11 +23,10 @@ export abstract class BaseService<T extends BaseEntity> {
     return this.repository.find();
   }
 
-  async findById(id: string): Promise<T | null>{
-   
+  async findById(id: string): Promise<T | null> {
     return this.repository.findOneById(id);
   }
-  async exist(query: FilterQuery<T>){
+  async exist(query: FilterQuery<T>) {
     return this.repository.exists(query);
   }
 
@@ -32,12 +38,17 @@ export abstract class BaseService<T extends BaseEntity> {
     return this.repository.updateOneById(id, updates);
   }
 
-
-  async update(query: FilterQuery<T>, updates: UpdateQuery<T>): Promise<T | null> {
+  async update(
+    query: FilterQuery<T>,
+    updates: UpdateQuery<T>,
+  ): Promise<T | null> {
     return this.repository.updateOne(query, updates);
   }
 
-  async updateMany(query: FilterQuery<T>, updates: UpdateQuery<T>): Promise<UpdateWriteOpResult> {
+  async updateMany(
+    query: FilterQuery<T>,
+    updates: UpdateQuery<T>,
+  ): Promise<UpdateWriteOpResult> {
     return this.repository.updateMany(query, updates);
   }
 
@@ -50,7 +61,7 @@ export abstract class BaseService<T extends BaseEntity> {
   async removeMany(query: FilterQuery<T>): Promise<DeleteResult> {
     return this.repository.deleteMany(query);
   }
-  async count(query: FilterQuery<T>):  Promise<number>{
+  async count(query: FilterQuery<T>): Promise<number> {
     return this.repository.countDocuments(query);
   }
 }

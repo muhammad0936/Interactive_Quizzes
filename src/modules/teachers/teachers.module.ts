@@ -7,8 +7,11 @@ import { TeacherRepository } from './teachers.repository';
 import { User, UserSchema } from 'src/entities/user.entity';
 
 @Module({
-  imports: [MongooseModule.forFeature([{name: Teacher.name, schema: TeacherSchema}]),MongooseModule.forFeature([{name: User.name, schema: UserSchema}])],
+  imports: [
+    MongooseModule.forFeature([{ name: Teacher.name, schema: TeacherSchema }]),
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+  ],
   providers: [TeachersService, TeacherRepository],
-  controllers: [TeachersController]
+  controllers: [TeachersController],
 })
 export class TeachersModule {}

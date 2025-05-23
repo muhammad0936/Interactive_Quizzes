@@ -3,10 +3,10 @@ import { BaseEntity } from './base.entity';
 
 @Schema({ collection: 'material' })
 export class Material extends BaseEntity {
-  @Prop({ required: true, unique: true})
+  @Prop({ required: true, unique: true })
   name: string;
 
-  @Prop({ required: true, min: 1, max: 5})
+  @Prop({ required: true, min: 1, max: 5 })
   year?: Number;
 }
 

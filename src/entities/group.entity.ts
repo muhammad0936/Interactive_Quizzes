@@ -8,7 +8,7 @@ import { Student } from './student.entity';
 @Schema({ collection: 'group' })
 export class Group extends BaseEntity {
   @Prop({ required: true })
-  num: Number;
+  num: number;
 
   @Prop({ required: true, type: Types.ObjectId, ref: Teacher.name })
   teacher: Types.ObjectId;

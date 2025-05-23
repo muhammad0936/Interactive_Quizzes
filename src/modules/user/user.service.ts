@@ -7,9 +7,7 @@ import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService<T extends User> extends BaseService<T> {
-    constructor(protected readonly repository: UserRepository<T>) {
+  constructor(protected readonly repository: UserRepository<T>) {
     super(repository);
   }
-
-  
 }

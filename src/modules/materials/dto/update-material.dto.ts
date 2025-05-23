@@ -1,4 +1,4 @@
-export class UpdateMaterialDto{
+export class UpdateMaterialDto {
   name?: String;
   Year?: Number;
 }

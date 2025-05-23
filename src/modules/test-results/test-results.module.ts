@@ -6,8 +6,12 @@ import { TestResult, TestResultSchema } from 'src/entities/test-result.entity';
 import { TestResultRepository } from './test-results.repository';
 
 @Module({
-  imports: [MongooseModule.forFeature([{name: TestResult.name, schema: TestResultSchema}])],
+  imports: [
+    MongooseModule.forFeature([
+      { name: TestResult.name, schema: TestResultSchema },
+    ]),
+  ],
   providers: [TestResultsService, TestResultRepository],
-  controllers: [TestResultsController]
+  controllers: [TestResultsController],
 })
 export class TestResultsModule {}

@@ -1,3 +1,3 @@
-import { LoginUserDto } from "src/modules/user/dto/login-user.dto";
+import { LoginUserDto } from 'src/modules/user/dto/login-user.dto';
 
-export class LoginAdminDto extends LoginUserDto{}
+export class LoginAdminDto extends LoginUserDto {}

@@ -8,5 +8,4 @@ import { UserType } from 'src/entities/enums/user-type.enum';
 import { UserRepository } from '../user/user.repository';
 
 @Injectable()
-export class AdminRepository extends UserRepository<Admin>{
-}
+export class AdminRepository extends UserRepository<Admin> {}
