@@ -5,8 +5,6 @@ import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
 import { QuestionsModule } from './modules/questions/questions.module';
 import { TestsModule } from './modules/tests/tests.module';
-import { GroupsModule } from './modules/groups/groups.module';
-import { MaterialsModule } from './modules/materials/materials.module';
 import { TestResultsModule } from './modules/test-results/test-results.module';
 import { TeachersModule } from './modules/teachers/teachers.module';
 import { AdminModule } from './modules/admin/admin.module';
@@ -17,6 +15,7 @@ import mongooseConfig from './config/mongoose.config';
 import { ConfigModule } from '@nestjs/config';
 import { StudentModule } from './modules/student/student.module';
 import { CourseModule } from './modules/course/course.module';
+import { GroupModule } from './modules/group/group.module';
 import multerConfig from './config/multer.config';
 
 @Module({
@@ -29,13 +28,12 @@ import multerConfig from './config/multer.config';
     UserModule,
     QuestionsModule,
     TestsModule,
-    GroupsModule,
-    MaterialsModule,
     TestResultsModule,
     TeachersModule,
     AdminModule,
     StudentModule,
     CourseModule,
+    GroupModule,
   ],
   controllers: [AppController],
   providers: [AppService, JwtService],

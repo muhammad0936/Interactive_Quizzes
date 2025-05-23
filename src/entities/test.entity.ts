@@ -2,13 +2,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseEntity } from './base.entity';
 import { Group } from './group.entity';
-import { Question } from './question.entity';
-import { Types } from 'mongoose';
+import { Question, QuestionSchema } from './question.entity';
+import { HydratedDocument, SchemaTypes, Types } from 'mongoose';
 
 @Schema({ collection: 'test' })
 export class Test extends BaseEntity {
   @Prop({
-    type: Types.ObjectId,
+    type: SchemaTypes.ObjectId,
     ref: Group.name,
     required: true,
   })
@@ -16,9 +16,8 @@ export class Test extends BaseEntity {
 
   @Prop([
     {
-      type: [Types.ObjectId],
-      ref: Question.name,
-      required: true,
+      type: [QuestionSchema],
+      default: () => [],
     },
   ])
   questions: Question[];
@@ -26,5 +25,12 @@ export class Test extends BaseEntity {
   @Prop({ default: Date.now })
   scheduledAt: Date;
 }
+
+export type TestDocument = HydratedDocument<
+  Test,
+  {
+    queries: Types.DocumentArray<Question>;
+  }
+>;
 
 export const TestSchema = SchemaFactory.createForClass(Test);

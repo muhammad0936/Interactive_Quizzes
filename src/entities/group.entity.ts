@@ -1,23 +1,25 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseEntity } from './base.entity';
-import { Teacher } from './teacher.entity';
-import { Material } from './material.entity';
-import { Types } from 'mongoose';
+import { SchemaTypes } from 'mongoose';
 import { Student } from './student.entity';
+import { Course } from './course.entity';
 
 @Schema({ collection: 'group' })
 export class Group extends BaseEntity {
   @Prop({ required: true })
-  num: number;
+  name: string;
 
-  @Prop({ required: true, type: Types.ObjectId, ref: Teacher.name })
-  teacher: Types.ObjectId;
+  @Prop({ required: true, type: SchemaTypes.ObjectId, ref: Course.name })
+  course: Course;
 
-  @Prop({ required: true, type: Types.ObjectId, ref: Material.name })
-  material: Types.ObjectId;
+  @Prop({
+    type: [SchemaTypes.ObjectId],
+    ref: Student.name,
+    default: () => [],
+  })
+  students: Student[];
 
-  @Prop({ required: true, type: [Types.ObjectId], ref: Student.name })
-  students: Types.ObjectId[];
+  year: string;
 }
 
 export const GroupSchema = SchemaFactory.createForClass(Group);

@@ -1,5 +1,4 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { BaseEntity } from './base.entity';
 import { User } from './user.entity';
 import { UserType } from './enums/user-type.enum';
 
