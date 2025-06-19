@@ -1,9 +1,11 @@
 // questions/repository/question.repository.ts
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { Group } from '../../entities/group.entity';
 import { BaseRepository } from '../../common/base.repository';
+import { plainToInstance } from 'class-transformer';
+import { GroupSummary } from './dto/group-summary.dto';
 
 @Injectable()
 export class GroupRepository extends BaseRepository<Group> {
@@ -13,8 +15,16 @@ export class GroupRepository extends BaseRepository<Group> {
     super(groupModel);
   }
 
-  // Add custom methods specific to Group
-  async findByType(type: string): Promise<Group[]> {
-    return this.groupModel.find({ type }).exec();
+  async findGroupsSummary(filter: FilterQuery<Group>) {
+    const results = await this.groupModel
+      .find(filter, {
+        _id: 1,
+        name: 1,
+        studentCount: { $size: '$students' },
+      })
+      .lean()
+      .exec();
+
+    return plainToInstance(GroupSummary, results);
   }
 }

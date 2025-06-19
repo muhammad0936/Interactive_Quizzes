@@ -4,6 +4,7 @@ import { GroupController } from './group.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Group, GroupSchema } from '../../entities/group.entity';
 import { GroupRepository } from './group.repository';
+import { Quiz, QuizSchema } from '../../entities/quiz.entity';
 
 @Module({
   imports: [
@@ -11,6 +12,10 @@ import { GroupRepository } from './group.repository';
       {
         name: Group.name,
         schema: GroupSchema,
+      },
+      {
+        name: Quiz.name,
+        schema: QuizSchema,
       },
     ]),
   ],

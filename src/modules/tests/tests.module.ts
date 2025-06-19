@@ -2,13 +2,12 @@ import { Module } from '@nestjs/common';
 import { TestsService } from './tests.service';
 import { TestsController } from './tests.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Test } from '@nestjs/testing';
-import { TestSchema } from 'src/entities/test.entity';
+import { Quiz, QuizSchema } from 'src/entities/quiz.entity';
 import { TestRepository } from './tests.repository';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Test.name, schema: TestSchema }]),
+    MongooseModule.forFeature([{ name: Quiz.name, schema: QuizSchema }]),
   ],
   providers: [TestsService, TestRepository],
   controllers: [TestsController],

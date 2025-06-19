@@ -18,8 +18,6 @@ export class Group extends BaseEntity {
     default: () => [],
   })
   students: Student[];
-
-  year: string;
 }
 
 export const GroupSchema = SchemaFactory.createForClass(Group);

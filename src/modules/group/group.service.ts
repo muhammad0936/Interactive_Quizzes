@@ -25,7 +25,7 @@ export class GroupService {
       filter.course = new Types.ObjectId(query.course);
     }
 
-    return this.groupRepository.find(filter);
+    return this.groupRepository.findGroupsSummary(filter);
   }
 
   findOne(id: string) {
