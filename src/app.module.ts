@@ -40,6 +40,12 @@ import multerConfig from './config/multer.config';
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AttachRoleMiddleware).forRoutes('*');
+    consumer
+      .apply((req, res, next) => {
+        next();
+      })
+      .forRoutes('*')
+      .apply(AttachRoleMiddleware)
+      .forRoutes('*');
   }
 }

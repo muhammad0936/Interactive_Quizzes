@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseInterceptors,
+  Query,
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
@@ -16,6 +17,8 @@ import { multerConfig } from 'src/config/multer.config';
 import { LoginAdminDto } from './dto/login-admin.dto';
 import { sign } from 'jsonwebtoken';
 import { UserType } from 'src/entities/enums/user-type.enum';
+import { GetAdminsFilterDto } from './dto/get-admins-filter.dto';
+import { Admin } from '../../entities/admin.entity';
 
 @Controller('admin')
 @UseInterceptors(FileInterceptor('file', multerConfig))
@@ -36,5 +39,11 @@ export class AdminController {
       { expiresIn: '30d' },
     )}`;
     return { jwtToken };
+  }
+
+  @Get()
+  async getAdmins(@Query() { name }: GetAdminsFilterDto): Promise<Admin[]> {
+    console.log('hit');
+    return this.adminService.getAdmins({ name });
   }
 }

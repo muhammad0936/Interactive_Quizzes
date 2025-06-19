@@ -8,6 +8,8 @@ import { UserType } from 'src/entities/enums/user-type.enum';
 import { hash } from 'bcryptjs';
 import { LoginAdminDto } from './dto/login-admin.dto';
 import { compare } from 'bcryptjs';
+import { GetAdminsFilterDto } from './dto/get-admins-filter.dto';
+import { Like } from 'typeorm';
 
 @Injectable()
 export class AdminService {
@@ -36,9 +38,24 @@ export class AdminService {
 
   async checkLoginData({ email, password }: LoginAdminDto): Promise<Admin> {
     const admin = await this.adminRepository.findByEmailWithPassword(email);
+    if (admin.userType !== UserType.ADMIN)
+      throw new BadRequestException('Invalid login data');
     if (!admin) throw new BadRequestException('Invalid login data');
     const isMatchPassword = await compare(password, admin.password);
     if (!isMatchPassword) throw new BadRequestException('Invalid login data');
     return admin;
+  }
+
+  async getAdmins({ name }: GetAdminsFilterDto): Promise<Admin[]> {
+    const query: any = {
+      userType: UserType.ADMIN,
+    };
+
+    if (name !== undefined && name !== null) {
+      query.name = Like(`%${name}%`);
+    }
+    const admins = await this.adminRepository.find(query);
+    console.log(admins);
+    return admins;
   }
 }

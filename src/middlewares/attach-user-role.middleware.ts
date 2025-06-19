@@ -18,7 +18,6 @@ export class AttachRoleMiddleware implements NestMiddleware {
     if (!authHeader) return next();
 
     const token = authHeader.split(' ')[1]; // Bearer <token>
-
     try {
       const payload = this.jwtService.verify(token, {
         secret: 'thisismysecretkey',

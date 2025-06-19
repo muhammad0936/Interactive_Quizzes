@@ -4,9 +4,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model } from 'mongoose';
 import { Teacher } from '../../entities/teacher.entity';
 import { BaseRepository } from '../../common/base.repository';
+import { UserRepository } from '../user/user.repository';
 
 @Injectable()
-export class TeacherRepository extends BaseRepository<Teacher> {
+export class TeacherRepository extends UserRepository<Teacher> {
   constructor(
     @InjectModel(Teacher.name) private readonly teacherModel: Model<Teacher>,
   ) {

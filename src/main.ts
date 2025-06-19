@@ -17,11 +17,27 @@ async function bootstrap() {
     }),
   );
 
-  const swaggerConfig = new DocumentBuilder().build();
+  // Configure Swagger with Authorization
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('Your API Title')
+    .setDescription('API Description')
+    .setVersion('1.0')
+    // Add Bearer Auth configuration
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Enter JWT token',
+      },
+      'JWT-auth', // Security scheme name (used in @ApiBearerAuth)
+    )
+    // Optional: Apply globally to all routes
+    .addSecurityRequirements('JWT-auth') // 👈 Optional global security requirement
+    .build();
 
-  const documentFactory = () =>
-    SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('swagger', app, documentFactory);
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('swagger', app, document);
   app.enableCors({
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',

@@ -5,9 +5,10 @@ import { UserType } from 'src/entities/enums/user-type.enum';
 import { BaseService } from 'src/common/base.service';
 import { Teacher } from 'src/entities/teacher.entity';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
-import { hashSync } from 'bcryptjs';
+import { compare, hashSync } from 'bcryptjs';
 import { hash } from 'bcryptjs';
 import { FilterQuery } from 'mongoose';
+import { LoginTeacherDto } from './dto/login-teacher.dto';
 
 @Injectable()
 export class TeachersService extends BaseService<Teacher> {
@@ -46,5 +47,15 @@ export class TeachersService extends BaseService<Teacher> {
       ...query,
       userType: UserType.TEACHER,
     });
+  }
+
+  async checkLoginData({ email, password }: LoginTeacherDto): Promise<Teacher> {
+    const teacher = await this.teacherRepository.findByEmailWithPassword(email);
+    if (teacher.userType !== UserType.TEACHER)
+      throw new BadRequestException('Invalid login data');
+    if (!teacher) throw new BadRequestException('Invalid login data');
+    const isMatchPassword = await compare(password, teacher.password);
+    if (!isMatchPassword) throw new BadRequestException('Invalid login data');
+    return teacher;
   }
 }

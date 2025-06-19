@@ -18,6 +18,9 @@ import { FilterQuery } from 'mongoose';
 import { Teacher } from '../../entities/teacher.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerConfig } from '../../config/multer.config';
+import { LoginTeacherDto } from './dto/login-teacher.dto';
+import { sign } from 'jsonwebtoken';
+import { UserType } from '../../entities/enums/user-type.enum';
 
 @Controller('teachers')
 @UseInterceptors(FileInterceptor('file', multerConfig))
@@ -39,5 +42,19 @@ export class TeachersController {
   @Get()
   async getTeachers(@Query() query: FilterQuery<Teacher>) {
     return this.teachersService.getTeachers(query);
+  }
+
+  @Post('login')
+  async login(@Body() { email, password }: LoginTeacherDto): Promise<Object> {
+    const student = await this.teachersService.checkLoginData({
+      email,
+      password,
+    });
+    const jwtToken = `Bearer ${sign(
+      { email, userId: student._id, role: UserType.TEACHER },
+      'thisismysecretkey',
+      { expiresIn: '30d' },
+    )}`;
+    return { jwtToken };
   }
 }

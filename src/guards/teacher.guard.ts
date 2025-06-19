@@ -9,13 +9,13 @@ import { UserType } from '../entities/enums/user-type.enum';
 import { User } from 'src/entities/user.entity';
 
 @Injectable()
-export class AdminGuard implements CanActivate {
+export class TeacherGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     // return true;
     const request = context.switchToHttp().getRequest();
     const userRole = request.role;
-    if (!userRole || userRole !== UserType.ADMIN) {
-      throw new ForbiddenException('Admin access required');
+    if (!userRole || userRole !== UserType.TEACHER) {
+      throw new ForbiddenException('Teacher access required');
     }
     return true;
   }
