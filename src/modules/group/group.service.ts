@@ -26,11 +26,16 @@ export class GroupService {
     if (query?.course) {
       filter.course = new Types.ObjectId(query.course);
     }
+<<<<<<< HEAD
     if (populate) queryCfg.populate = populate;
     console.log(populate);
     const groups = await this.groupRepository.find(filter, queryCfg);
     console.log(groups);
     return groups;
+=======
+
+    return this.groupRepository.findGroupsSummary(filter);
+>>>>>>> 81056ddc59ad167d2dfe9c6c93959261f9b9de28
   }
 
   findOne(id: string) {

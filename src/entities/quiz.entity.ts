@@ -5,8 +5,8 @@ import { Group } from './group.entity';
 import { Question, QuestionSchema } from './question.entity';
 import { HydratedDocument, SchemaTypes, Types } from 'mongoose';
 
-@Schema({ collection: 'test' })
-export class Test extends BaseEntity {
+@Schema({ collection: 'quiz' })
+export class Quiz extends BaseEntity {
   @Prop({
     type: SchemaTypes.ObjectId,
     ref: Group.name,
@@ -26,11 +26,11 @@ export class Test extends BaseEntity {
   scheduledAt: Date;
 }
 
-export type TestDocument = HydratedDocument<
-  Test,
+export type QuizDocument = HydratedDocument<
+  Quiz,
   {
     queries: Types.DocumentArray<Question>;
   }
 >;
 
-export const TestSchema = SchemaFactory.createForClass(Test);
+export const QuizSchema = SchemaFactory.createForClass(Quiz);

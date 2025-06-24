@@ -2,7 +2,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseEntity } from './base.entity';
 import { Student } from './student.entity';
-import { Test } from './test.entity';
+import { Quiz } from './quiz.entity';
 import { Types } from 'mongoose';
 
 @Schema({ collection: 'test_result' })
@@ -16,10 +16,10 @@ export class TestResult extends BaseEntity {
 
   @Prop({
     type: Types.ObjectId,
-    ref: Test.name,
+    ref: Quiz.name,
     required: true,
   })
-  test: Test;
+  test: Quiz;
 
   @Prop({
     required: true,

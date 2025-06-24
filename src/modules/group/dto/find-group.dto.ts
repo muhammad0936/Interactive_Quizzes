@@ -1,5 +1,5 @@
 export class FindGroupDto {
-  name: string;
+  name?: string;
 
-  course: string;
+  course?: string;
 }

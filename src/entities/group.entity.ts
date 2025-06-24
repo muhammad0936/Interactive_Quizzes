@@ -19,6 +19,7 @@ export class Group extends BaseEntity {
     default: () => [],
   })
   students: Student[];
+<<<<<<< HEAD
 
   @Prop({
     type: SchemaTypes.ObjectId,
@@ -28,6 +29,8 @@ export class Group extends BaseEntity {
   teacher: String;
 
   year: string;
+=======
+>>>>>>> 81056ddc59ad167d2dfe9c6c93959261f9b9de28
 }
 
 export const GroupSchema = SchemaFactory.createForClass(Group);
