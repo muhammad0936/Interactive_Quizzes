@@ -40,6 +40,7 @@ export class StudentController {
   }
 
   @Patch(':id')
+  @UseGuards(TeacherGuard)
   update(@Param('id') id: string, @Body() updateStudentDto: UpdateStudentDto) {
     return this.studentService.update(id, updateStudentDto);
   }
@@ -58,6 +59,7 @@ export class StudentController {
   }
 
   @Delete(':id')
+  @UseGuards(TeacherGuard)
   remove(@Param('id') id: string) {
     return this.studentService.remove(id);
   }

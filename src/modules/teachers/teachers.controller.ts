@@ -35,7 +35,7 @@ export class TeachersController {
 
   @Delete(':id')
   @UseGuards(AdminGuard)
-  async deleteTeacher(@Param() id: string) {
+  async deleteTeacher(@Param('id') id: string) {
     this.teachersService.removeById(id);
     return { message: 'Teacher deleted.' };
   }

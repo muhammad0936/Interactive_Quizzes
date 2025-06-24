@@ -13,11 +13,7 @@ import { BaseEntity } from 'src/entities/base.entity';
 import { EntityModel } from './types/mongoose';
 import { plainToInstance } from 'class-transformer';
 import { EntityNotFoundException } from 'src/exceptions/entity-not-found.exception';
-
-type QueryConfig<T> = {
-  populate?: string | string[] | PopulateOptions | PopulateOptions[];
-  projection?: ProjectionType<T>;
-};
+import { QueryConfig } from './types/queryConfig';
 
 type DeleteCfg = {
   hardDelete?: boolean;

@@ -6,6 +6,7 @@ import { FilterQuery, Types } from 'mongoose';
 import { Group } from '../../entities/group.entity';
 import { FindGroupDto } from './dto/find-group.dto';
 import { escapeMongoRegex } from '../../common/utils/mongo';
+import { QueryConfig } from '../../common/types/queryConfig';
 
 @Injectable()
 export class GroupService {
@@ -14,8 +15,9 @@ export class GroupService {
     return this.groupRepository.create(dto);
   }
 
-  find(query?: FindGroupDto) {
+  async find(query?: FindGroupDto, populate?: string) {
     const filter: FilterQuery<Group> = {};
+    const queryCfg: QueryConfig<Group> = {};
 
     if (query?.name) {
       filter.name = escapeMongoRegex(query.name);
@@ -24,8 +26,11 @@ export class GroupService {
     if (query?.course) {
       filter.course = new Types.ObjectId(query.course);
     }
-
-    return this.groupRepository.find(filter);
+    if (populate) queryCfg.populate = populate;
+    console.log(populate);
+    const groups = await this.groupRepository.find(filter, queryCfg);
+    console.log(groups);
+    return groups;
   }
 
   findOne(id: string) {
