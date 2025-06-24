@@ -25,7 +25,7 @@ export class GroupController {
 
   @Get()
   findAll() {
-    return this.groupService.find(undefined, 'students');
+    return this.groupService.find(undefined, 'students teacher course');
   }
 
   @Get(':id')
