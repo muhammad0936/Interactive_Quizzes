@@ -29,13 +29,8 @@ export class GroupController {
   }
 
   @Get()
-<<<<<<< HEAD
   findAll() {
     return this.groupService.find(undefined, 'students teacher course');
-=======
-  findAll(@Query() query: FindGroupDto): Promise<GroupSummary[]> {
-    return this.groupService.find(query);
->>>>>>> 81056ddc59ad167d2dfe9c6c93959261f9b9de28
   }
 
   @Get(':id')
