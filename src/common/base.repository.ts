@@ -96,6 +96,7 @@ export class BaseRepository<
     if (queryCfg?.lean === false) {
       return model;
     }
+    console.log(query);
     return model && this.cast(model.toObject());
   }
 

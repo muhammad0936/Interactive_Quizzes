@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
-import { TestResultsService } from './test-results.service';
-import { TestResultsController } from './test-results.controller';
+import { QuizResultsService } from './test-results.service';
+import { QuizResultsController } from './test-results.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TestResult, TestResultSchema } from 'src/entities/test-result.entity';
-import { TestResultRepository } from './test-results.repository';
+import { QuizResult, QuizResultSchema } from 'src/entities/quiz-result.entity';
+import { QuizResultRepository } from './test-results.repository';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: TestResult.name, schema: TestResultSchema },
+      { name: QuizResult.name, schema: QuizResultSchema },
     ]),
   ],
-  providers: [TestResultsService, TestResultRepository],
-  controllers: [TestResultsController],
+  providers: [QuizResultsService, QuizResultRepository],
+  controllers: [QuizResultsController],
 })
-export class TestResultsModule {}
+export class QuizResultsModule {}

@@ -4,4 +4,4 @@ import { multerConfig } from '../../config/multer.config';
 
 @Controller('test-results')
 @UseInterceptors(FileInterceptor('file', multerConfig))
-export class TestResultsController {}
+export class QuizResultsController {}

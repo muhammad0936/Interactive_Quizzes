@@ -31,7 +31,7 @@ export abstract class BaseService<T extends BaseEntity> {
   }
 
   async findOne(id: string): Promise<T | null> {
-    return this.repository.findOne();
+    return this.repository.findOne({ _id: id });
   }
 
   async updateById(id: string, updates: UpdateQuery<T>): Promise<T | null> {
@@ -42,6 +42,7 @@ export abstract class BaseService<T extends BaseEntity> {
     query: FilterQuery<T>,
     updates: UpdateQuery<T>,
   ): Promise<T | null> {
+    console.log(query);
     return this.repository.updateOne(query, updates);
   }
 

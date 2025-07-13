@@ -43,5 +43,6 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   });
   await app.listen(process.env.PORT ?? 8000);
+  console.log('Conntected ....');
 }
 void bootstrap();

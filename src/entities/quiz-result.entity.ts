@@ -6,7 +6,7 @@ import { Quiz } from './quiz.entity';
 import { Types } from 'mongoose';
 
 @Schema({ collection: 'test_result' })
-export class TestResult extends BaseEntity {
+export class QuizResult extends BaseEntity {
   @Prop({
     type: Types.ObjectId,
     ref: Student.name,
@@ -32,4 +32,4 @@ export class TestResult extends BaseEntity {
   completedAt: Date;
 }
 
-export const TestResultSchema = SchemaFactory.createForClass(TestResult);
+export const QuizResultSchema = SchemaFactory.createForClass(QuizResult);

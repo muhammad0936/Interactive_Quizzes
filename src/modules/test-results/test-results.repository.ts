@@ -2,20 +2,20 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { TestResult } from '../../entities/test-result.entity';
+import { QuizResult } from '../../entities/quiz-result.entity';
 import { BaseRepository } from '../../common/base.repository';
 
 @Injectable()
-export class TestResultRepository extends BaseRepository<TestResult> {
+export class QuizResultRepository extends BaseRepository<QuizResult> {
   constructor(
-    @InjectModel(TestResult.name)
-    private readonly testResultModel: Model<TestResult>,
+    @InjectModel(QuizResult.name)
+    private readonly testResultModel: Model<QuizResult>,
   ) {
     super(testResultModel);
   }
 
-  // Add custom methods specific to TestResult
-  async findByType(type: string): Promise<TestResult[]> {
+  // Add custom methods specific to QuizResult
+  async findByType(type: string): Promise<QuizResult[]> {
     return this.testResultModel.find({ type }).exec();
   }
 }
