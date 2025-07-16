@@ -16,7 +16,6 @@ export class AttachRoleMiddleware implements NestMiddleware {
     // 1. Extract JWT from `Authorization` header
     const authHeader = req.headers.authorization;
     if (!authHeader) return next();
-    console.log(authHeader);
     const token = authHeader.split(' ')[1]; // Bearer <token>
     try {
       const payload = this.jwtService.verify(token, {
@@ -28,6 +27,7 @@ export class AttachRoleMiddleware implements NestMiddleware {
       if (!user) return next();
 
       req.role = user.userType;
+      req.userId = userId;
     } catch (error) {
       console.error('JWT error:', error);
     }

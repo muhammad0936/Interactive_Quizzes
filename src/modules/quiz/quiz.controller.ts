@@ -17,6 +17,7 @@ import { TeacherGuard } from '../../guards/teacher.guard';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { Quiz } from '../../entities/quiz.entity';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
+import { CreateAndAssignQuestionDto, AssignExistingQuestionsDto, BulkCreateQuestionsDto } from './dto/assign-question.dto';
 
 @Controller('quiz')
 @UseInterceptors(FileInterceptor('file', multerConfig))
@@ -51,5 +52,13 @@ export class QuizController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.quizService.removeById(id);
+  }
+
+  @Post('bulk-create-questions')
+  @UseGuards(TeacherGuard)
+  async bulkCreateQuestions(
+    @Body() body: BulkCreateQuestionsDto,
+  ) {
+    return this.quizService.bulkCreateAndAssignQuestions(body);
   }
 }

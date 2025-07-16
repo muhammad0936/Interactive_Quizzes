@@ -4,6 +4,8 @@ import { BaseEntity } from './base.entity';
 import { Group } from './group.entity';
 import { Question, QuestionSchema } from './question.entity';
 import { HydratedDocument, SchemaTypes, Types } from 'mongoose';
+import { IsString, Length } from 'class-validator';
+import { Schema as MongooseSchema } from 'mongoose';
 
 @Schema({ collection: 'quiz' })
 export class Quiz extends BaseEntity {
@@ -24,6 +26,12 @@ export class Quiz extends BaseEntity {
 
   @Prop({ default: Date.now })
   scheduledAt: Date;
+
+  @Prop({ unique: true })
+  accessCode: string;
+
+  @Prop({ default: false })
+  isOver: boolean;
 }
 
 export type QuizDocument = HydratedDocument<
@@ -34,3 +42,16 @@ export type QuizDocument = HydratedDocument<
 >;
 
 export const QuizSchema = SchemaFactory.createForClass(Quiz);
+
+// Helper function to generate 8-digit code
+function generateAccessCode(): string {
+  return Math.floor(10000000 + Math.random() * 90000000).toString();
+}
+
+// Pre-save hook to assign accessCode if not present
+QuizSchema.pre('save', function (next) {
+  if (!this.accessCode) {
+    this.accessCode = generateAccessCode();
+  }
+  next();
+});

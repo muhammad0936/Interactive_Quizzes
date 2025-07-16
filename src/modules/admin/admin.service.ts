@@ -55,7 +55,6 @@ export class AdminService {
       query.name = Like(`%${name}%`);
     }
     const admins = await this.adminRepository.find(query);
-    console.log(admins);
     return admins;
   }
 }

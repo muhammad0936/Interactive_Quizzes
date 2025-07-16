@@ -1,0 +1,98 @@
+{
+    "quizId": "6877e1dda7a05d805c5d752c",
+    "questions": [
+      {
+        "text": "1+1= ?",
+        "choices": [
+          {
+            "text": "1",
+            "isCorrect": false
+          },
+          {
+            "text": "2",
+            "isCorrect": true
+          },
+          {
+            "text": "3",
+            "isCorrect": false
+          },
+          {
+            "text": "5",
+            "isCorrect": false
+          }
+        ],
+        "points": 1,
+        "isMath": true,
+        "isMultiTrue": false
+      },    {
+        "text": "1+0= ?",
+        "choices": [
+          {
+            "text": "1",
+            "isCorrect": true
+          },
+          {
+            "text": "2",
+            "isCorrect": false
+          },
+          {
+            "text": "3",
+            "isCorrect": false
+          },
+          {
+            "text": "5",
+            "isCorrect": false
+          }
+        ],
+        "points": 1,
+        "isMath": true,
+        "isMultiTrue": false
+      },    {
+        "text": "1+2= ?",
+        "choices": [
+          {
+            "text": "1",
+            "isCorrect": false
+          },
+          {
+            "text": "2",
+            "isCorrect": false
+          },
+          {
+            "text": "3",
+            "isCorrect": true
+          },
+          {
+            "text": "5",
+            "isCorrect": false
+          }
+        ],
+        "points": 1,
+        "isMath": true,
+        "isMultiTrue": false
+      },    {
+        "text": "1+4= ?",
+        "choices": [
+          {
+            "text": "1",
+            "isCorrect": false
+          },
+          {
+            "text": "5.00",
+            "isCorrect": true
+          },
+          {
+            "text": "3",
+            "isCorrect": false
+          },
+          {
+            "text": "5",
+            "isCorrect": true
+          }
+        ],
+        "points": 1,
+        "isMath": true,
+        "isMultiTrue": true
+      }
+    ]
+  }

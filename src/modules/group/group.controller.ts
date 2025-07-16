@@ -9,6 +9,8 @@ import {
   UseGuards,
   Query,
   NotFoundException,
+  Req,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { GroupService } from './group.service';
 import { CreateGroupDto } from './dto/create-group.dto';
@@ -17,6 +19,7 @@ import { TeacherGuard } from '../../guards/teacher.guard';
 import { GroupSummary } from './dto/group-summary.dto';
 import { FindGroupDto } from './dto/find-group.dto';
 import { Group } from '../../entities/group.entity';
+import { Request } from 'express';
 
 @Controller('group')
 export class GroupController {
@@ -24,8 +27,9 @@ export class GroupController {
 
   @Post()
   @UseGuards(TeacherGuard)
-  create(@Body() createGroupDto: CreateGroupDto) {
-    return this.groupService.create(createGroupDto);
+  create(@Body() createGroupDto: CreateGroupDto,
+  @Req() req: Request,) {
+    return this.groupService.create(createGroupDto, req.userId as string);
   }
 
   @Get()

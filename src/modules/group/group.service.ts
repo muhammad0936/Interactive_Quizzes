@@ -11,8 +11,8 @@ import { QueryConfig } from '../../common/types/queryConfig';
 @Injectable()
 export class GroupService {
   constructor(private readonly groupRepository: GroupRepository) {}
-  create(dto: CreateGroupDto) {
-    return this.groupRepository.create(dto);
+  create(dto: CreateGroupDto, teacher: string) {
+    return this.groupRepository.create({...dto, teacher});
   }
 
   async find(query?: FindGroupDto, populate?: string) {
@@ -27,9 +27,7 @@ export class GroupService {
       filter.course = new Types.ObjectId(query.course);
     }
     if (populate) queryCfg.populate = populate;
-    console.log(populate);
     const groups = await this.groupRepository.find(filter, queryCfg);
-    console.log(groups);
     return groups;
 
     return this.groupRepository.findGroupsSummary(filter);

@@ -42,7 +42,6 @@ export abstract class BaseService<T extends BaseEntity> {
     query: FilterQuery<T>,
     updates: UpdateQuery<T>,
   ): Promise<T | null> {
-    console.log(query);
     return this.repository.updateOne(query, updates);
   }
 

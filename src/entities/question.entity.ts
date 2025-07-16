@@ -20,11 +20,11 @@ export class Question extends BaseEntity {
   isMath?: boolean;
 
   @Prop({
-    required: true,
     type: String,
     enum: QuestionType,
+    default: QuestionType.MULTIPLE_CHOICE
   })
-  type: QuestionType;
+  type: string
 
   @Prop({ required: true, default: 1 })
   points: number;

@@ -43,7 +43,6 @@ export class AdminController {
 
   @Get()
   async getAdmins(@Query() { name }: GetAdminsFilterDto): Promise<Admin[]> {
-    console.log('hit');
     return this.adminService.getAdmins({ name });
   }
 }
