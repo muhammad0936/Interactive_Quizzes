@@ -14,6 +14,9 @@ export class AttachRoleMiddleware implements NestMiddleware {
 
   async use(req: Request, _res: Response, next: NextFunction) {
     // 1. Extract JWT from `Authorization` header
+    // in AttachRoleMiddleware
+    console.log('AttachRoleMiddleware hit:', req.originalUrl);
+
     const authHeader = req.headers.authorization;
     if (!authHeader) return next();
     const token = authHeader.split(' ')[1]; // Bearer <token>
@@ -28,6 +31,8 @@ export class AttachRoleMiddleware implements NestMiddleware {
 
       req.role = user.userType;
       req.userId = userId;
+      
+      console.log(`Middleware - ${req.method} ${req.path}: Set role=${req.role}, userId=${req.userId}`);
     } catch (error) {
       console.error('JWT error:', error);
     }

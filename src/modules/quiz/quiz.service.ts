@@ -7,16 +7,25 @@ import { CreateAndAssignQuestionDto, AssignExistingQuestionsDto, BulkCreateQuest
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Question } from '../../entities/question.entity';
+import { CreateQuizDto } from './dto/create-quiz.dto';
+import { GroupRepository } from '../group/group.repository';
 
 @Injectable()
 export class QuizService extends BaseService<Quiz> {
   constructor(
     private readonly quizRepository: QuizRepository,
     private readonly questionsService: QuestionsService,
+    private readonly groupRepo: GroupRepository,
     @InjectModel(Quiz.name) private readonly quizModel: Model<Quiz>,
     @InjectModel(Question.name) private readonly questionModel: Model<Question>,
   ) {
     super(quizRepository);
+  }
+
+  async create({ group, scheduledAt }: CreateQuizDto): Promise<Quiz> {
+    const isGroupExist = await this.groupRepo.exists({ _id: group });
+    if (!isGroupExist) throw new Error('Group not found');
+    return this.repository.create({group, scheduledAt});
   }
 
   async createAndAssignQuestion(dto: CreateAndAssignQuestionDto) {

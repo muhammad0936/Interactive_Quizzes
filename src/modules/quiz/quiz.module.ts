@@ -11,17 +11,21 @@ import { Question, QuestionSchema } from '../../entities/question.entity';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { QuestionRepository } from '../questions/questions.repository';
+import { GroupService } from '../group/group.service';
+import { GroupRepository } from '../group/group.repository';
+import { Group, GroupSchema } from '../../entities/group.entity';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Quiz.name, schema: QuizSchema },
       { name: Question.name, schema: QuestionSchema },
+      { name: Group.name, schema: GroupSchema },
     ]),
     QuestionsModule,
   ],
-  providers: [QuizService, QuizRepository, QuestionsService,QuestionRepository],
+  providers: [QuizService, QuizRepository, QuestionsService,QuestionRepository , GroupRepository],
   controllers: [QuizController, QuestionsController],
-  exports: [QuestionsService],
+  exports: [QuestionsService, GroupRepository],
 })
 export class QuizModule {}

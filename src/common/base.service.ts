@@ -19,8 +19,8 @@ export abstract class BaseService<T extends BaseEntity> {
     return this.repository.create(createDto);
   }
 
-  async findAll(): Promise<T[]> {
-    return this.repository.find();
+  async findAll(query: FilterQuery<T> = {}): Promise<T[]> {
+    return this.repository.find(query);
   }
 
   async findById(id: string): Promise<T | null> {
@@ -30,8 +30,8 @@ export abstract class BaseService<T extends BaseEntity> {
     return this.repository.exists(query);
   }
 
-  async findOne(id: string): Promise<T | null> {
-    return this.repository.findOne({ _id: id });
+  async findOne(id: string, populate?: string): Promise<T | null> {
+    return this.repository.findOne({ _id: id }, { populate });
   }
 
   async updateById(id: string, updates: UpdateQuery<T>): Promise<T | null> {

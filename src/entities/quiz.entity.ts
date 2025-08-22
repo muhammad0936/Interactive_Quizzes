@@ -16,13 +16,12 @@ export class Quiz extends BaseEntity {
   })
   group: Group;
 
-  @Prop([
-    {
-      type: [QuestionSchema],
-      default: () => [],
-    },
-  ])
+  @Prop({
+    type: [{ type: SchemaTypes.ObjectId, ref: Question.name }],
+    default: []
+  })
   questions: Question[];
+
 
   @Prop({ default: Date.now })
   scheduledAt: Date;

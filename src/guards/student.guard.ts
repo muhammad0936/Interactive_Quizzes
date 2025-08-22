@@ -8,15 +8,16 @@ import {
 import { UserType } from '../entities/enums/user-type.enum';
 
 @Injectable()
-export class AdminGuard implements CanActivate {
+export class StudentGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
-    // return true;
+    //return true;
     const request = context.switchToHttp().getRequest();
     const userRole = request.role;
     console.log(userRole);
-    if (!userRole || userRole !== UserType.ADMIN) {
-      throw new ForbiddenException('Admin access required');
+    if (!userRole || userRole !== UserType.STUDENT) {
+      throw new ForbiddenException('Student access required');
     }
     return true;
   }
 }
+  
