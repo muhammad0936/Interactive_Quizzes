@@ -20,4 +20,3 @@ export class StudentGuard implements CanActivate {
     return true;
   }
 }
-  

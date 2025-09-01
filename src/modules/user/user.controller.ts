@@ -15,7 +15,13 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from 'src/entities/user.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { multerConfig } from '../../config/multer.config';
-import { ApiTags, ApiBody, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBody,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+} from '@nestjs/swagger';
 
 @ApiTags('user')
 @Controller('user')
@@ -31,10 +37,25 @@ export class UserController<T extends User> {
   }
 
   @Get()
-  @ApiQuery({ name: 'name', required: false, description: 'Filter users by name' })
-  @ApiQuery({ name: 'email', required: false, description: 'Filter users by email' })
-  @ApiQuery({ name: 'userType', required: false, description: 'Filter users by user type' })
-  @ApiResponse({ status: 200, description: 'List of users retrieved successfully' })
+  @ApiQuery({
+    name: 'name',
+    required: false,
+    description: 'Filter users by name',
+  })
+  @ApiQuery({
+    name: 'email',
+    required: false,
+    description: 'Filter users by email',
+  })
+  @ApiQuery({
+    name: 'userType',
+    required: false,
+    description: 'Filter users by user type',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'List of users retrieved successfully',
+  })
   findAll(@Query() query: any = {}) {
     return this.userService.findAll(query);
   }

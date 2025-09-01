@@ -18,10 +18,9 @@ export class Quiz extends BaseEntity {
 
   @Prop({
     type: [{ type: SchemaTypes.ObjectId, ref: Question.name }],
-    default: []
+    default: [],
   })
   questions: Question[];
-
 
   @Prop({ default: Date.now })
   scheduledAt: Date;

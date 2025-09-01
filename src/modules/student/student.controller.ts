@@ -21,7 +21,14 @@ import { sign } from 'jsonwebtoken';
 import { UserType } from '../../entities/enums/user-type.enum';
 import { TeacherGuard } from '../../guards/teacher.guard';
 import { StudentGuard } from '../../guards/student.guard';
-import { ApiTags, ApiBody, ApiParam, ApiQuery, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBody,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { FilterQuery } from 'mongoose';
 import { Student } from '../../entities/student.entity';
 import { AccessQuizDto } from './dto/access-quiz.dto';
@@ -44,10 +51,25 @@ export class StudentController {
 
   @Get()
   @UseGuards(TeacherGuard)
-  @ApiQuery({ name: 'name', required: false, description: 'Filter students by name' })
-  @ApiQuery({ name: 'email', required: false, description: 'Filter students by email' })
-  @ApiQuery({ name: 'studentNumber', required: false, description: 'Filter students by student number' })
-  @ApiResponse({ status: 200, description: 'List of students retrieved successfully' })
+  @ApiQuery({
+    name: 'name',
+    required: false,
+    description: 'Filter students by name',
+  })
+  @ApiQuery({
+    name: 'email',
+    required: false,
+    description: 'Filter students by email',
+  })
+  @ApiQuery({
+    name: 'studentNumber',
+    required: false,
+    description: 'Filter students by student number',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'List of students retrieved successfully',
+  })
   findAll(@Query() query: FilterQuery<Student> = {}) {
     return this.studentService.findAll(query);
   }
@@ -89,10 +111,16 @@ export class StudentController {
   @ApiBody({ type: AccessQuizDto, description: 'Quiz access code' })
   @ApiResponse({ status: 200, description: 'Quiz accessed successfully' })
   @ApiResponse({ status: 404, description: 'Quiz not found' })
-  @ApiResponse({ status: 403, description: 'Access denied - not a member of the group or quiz ended' })
+  @ApiResponse({
+    status: 403,
+    description: 'Access denied - not a member of the group or quiz ended',
+  })
   async accessQuiz(@Body() accessQuizDto: AccessQuizDto, @Req() req: Request) {
     const studentId = (req as any).userId;
-    return this.studentService.accessQuizByCode(accessQuizDto.accessCode, studentId);
+    return this.studentService.accessQuizByCode(
+      accessQuizDto.accessCode,
+      studentId,
+    );
   }
 
   @Delete(':id')

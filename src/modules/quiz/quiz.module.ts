@@ -24,7 +24,13 @@ import { Group, GroupSchema } from '../../entities/group.entity';
     ]),
     QuestionsModule,
   ],
-  providers: [QuizService, QuizRepository, QuestionsService,QuestionRepository , GroupRepository],
+  providers: [
+    QuizService,
+    QuizRepository,
+    QuestionsService,
+    QuestionRepository,
+    GroupRepository,
+  ],
   controllers: [QuizController, QuestionsController],
   exports: [QuestionsService, GroupRepository],
 })

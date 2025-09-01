@@ -11,7 +11,10 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  @ApiResponse({ status: 200, description: 'Hello message retrieved successfully' })
+  @ApiResponse({
+    status: 200,
+    description: 'Hello message retrieved successfully',
+  })
   getHello(): string {
     return this.appService.getHello();
   }

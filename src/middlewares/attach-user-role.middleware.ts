@@ -31,8 +31,10 @@ export class AttachRoleMiddleware implements NestMiddleware {
 
       req.role = user.userType;
       req.userId = userId;
-      
-      console.log(`Middleware - ${req.method} ${req.path}: Set role=${req.role}, userId=${req.userId}`);
+
+      console.log(
+        `Middleware - ${req.method} ${req.path}: Set role=${req.role}, userId=${req.userId}`,
+      );
     } catch (error) {
       console.error('JWT error:', error);
     }

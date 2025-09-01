@@ -22,9 +22,9 @@ export class Question extends BaseEntity {
   @Prop({
     type: String,
     enum: QuestionType,
-    default: QuestionType.MULTIPLE_CHOICE
+    default: QuestionType.MULTIPLE_CHOICE,
   })
-  type: string
+  type: string;
 
   @Prop({ required: true, default: 1 })
   points: number;
