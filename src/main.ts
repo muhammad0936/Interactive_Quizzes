@@ -42,7 +42,8 @@ async function bootstrap() {
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   });
-  await app.listen(process.env.PORT ?? 8000);
-  console.log(`Conntected ...., Port: ${process.env.PORT && 8000}`);
+  const port = process.env.PORT ?? 8000;
+  await app.listen(port);
+  console.log(`Conntected ...., Port: ${port}`);
 }
 void bootstrap();
