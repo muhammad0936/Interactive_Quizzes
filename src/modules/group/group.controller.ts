@@ -21,7 +21,14 @@ import { GroupSummary } from './dto/group-summary.dto';
 import { FindGroupDto } from './dto/find-group.dto';
 import { Group } from '../../entities/group.entity';
 import { Request } from 'express';
-import { ApiTags, ApiBody, ApiParam, ApiQuery, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBody,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { AssignStudentDto } from './dto/assign-student.dto';
 import { RemoveStudentDto } from './dto/remove-student.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -35,7 +42,6 @@ export class GroupController {
 
   @Post()
   @UseGuards(TeacherGuard)
-
   @ApiBody({ type: CreateGroupDto, description: 'Group creation data' })
   @ApiResponse({ status: 201, description: 'Group created successfully' })
   create(@Body() createGroupDto: CreateGroupDto, @Req() req: Request) {
@@ -43,10 +49,25 @@ export class GroupController {
   }
 
   @Get()
-  @ApiQuery({ name: 'name', required: false, description: 'Filter groups by name' })
-  @ApiQuery({ name: 'course', required: false, description: 'Filter groups by course ID' })
-  @ApiQuery({ name: 'teacher', required: false, description: 'Filter groups by teacher ID' })
-  @ApiResponse({ status: 200, description: 'List of groups retrieved successfully' })
+  @ApiQuery({
+    name: 'name',
+    required: false,
+    description: 'Filter groups by name',
+  })
+  @ApiQuery({
+    name: 'course',
+    required: false,
+    description: 'Filter groups by course ID',
+  })
+  @ApiQuery({
+    name: 'teacher',
+    required: false,
+    description: 'Filter groups by teacher ID',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'List of groups retrieved successfully',
+  })
   findAll(@Query() query: any = {}) {
     return this.groupService.find(query, 'students teacher course');
   }
@@ -81,52 +102,66 @@ export class GroupController {
   @Post(':id/assign-students')
   @UseGuards(TeacherGuard)
   @ApiParam({ name: 'id', description: 'Group ID' })
-  @ApiBody({ type: AssignStudentDto, description: 'Student IDs to assign to the group' })
+  @ApiBody({
+    type: AssignStudentDto,
+    description: 'Student IDs to assign to the group',
+  })
   @ApiResponse({ status: 200, description: 'Students assigned successfully' })
   @ApiResponse({ status: 404, description: 'Group not found' })
-  @ApiResponse({ status: 403, description: 'Access denied - not the group teacher' })
+  @ApiResponse({
+    status: 403,
+    description: 'Access denied - not the group teacher',
+  })
   async assignStudents(
     @Param('id') groupId: string,
     @Body() assignStudentDto: AssignStudentDto,
-    @Req() req: Request
+    @Req() req: Request,
   ) {
     return this.groupService.assignStudents(
       groupId,
       assignStudentDto.studentIds,
-      req.userId as string
+      req.userId as string,
     );
   }
 
   @Post(':id/remove-students')
   @UseGuards(TeacherGuard)
   @ApiParam({ name: 'id', description: 'Group ID' })
-  @ApiBody({ type: RemoveStudentDto, description: 'Student IDs to remove from the group' })
+  @ApiBody({
+    type: RemoveStudentDto,
+    description: 'Student IDs to remove from the group',
+  })
   @ApiResponse({ status: 200, description: 'Students removed successfully' })
   @ApiResponse({ status: 404, description: 'Group not found' })
-  @ApiResponse({ status: 403, description: 'Access denied - not the group teacher' })
+  @ApiResponse({
+    status: 403,
+    description: 'Access denied - not the group teacher',
+  })
   async removeStudents(
     @Param('id') groupId: string,
     @Body() removeStudentDto: RemoveStudentDto,
-    @Req() req: Request
+    @Req() req: Request,
   ) {
     return this.groupService.removeStudents(
       groupId,
       removeStudentDto.studentIds,
-      req.userId as string
+      req.userId as string,
     );
   }
 
   @Get(':id/students')
   @UseGuards(TeacherGuard)
-
   @ApiParam({ name: 'id', description: 'Group ID' })
-  @ApiResponse({ status: 200, description: 'Group students retrieved successfully' })
+  @ApiResponse({
+    status: 200,
+    description: 'Group students retrieved successfully',
+  })
   @ApiResponse({ status: 404, description: 'Group not found' })
-  @ApiResponse({ status: 403, description: 'Access denied - not the group teacher' })
-  async getGroupStudents(
-    @Param('id') groupId: string,
-    @Req() req: Request
-  ) {
+  @ApiResponse({
+    status: 403,
+    description: 'Access denied - not the group teacher',
+  })
+  async getGroupStudents(@Param('id') groupId: string, @Req() req: Request) {
     return this.groupService.getGroupStudents(groupId, req.userId as string);
   }
 }

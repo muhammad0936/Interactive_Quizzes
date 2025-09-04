@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { StudentRepository } from './student.repository';
@@ -37,7 +42,10 @@ export class StudentService {
   }
 
   findAll(query: FilterQuery<Student> = {}) {
-    return this.studentRepository.find({ userType: UserType.STUDENT, ...query });
+    return this.studentRepository.find({
+      userType: UserType.STUDENT,
+      ...query,
+    });
   }
 
   findOne(id: string) {
@@ -64,9 +72,11 @@ export class StudentService {
 
   async accessQuizByCode(accessCode: string, studentId: string) {
     // Find the quiz by access code
-    const quiz = await this.quizModel.findOne({ accessCode }).populate('group')
-    .populate('questions'); 
-    console.log(quiz)
+    const quiz = await this.quizModel
+      .findOne({ accessCode })
+      .populate('group')
+      .populate('questions');
+    console.log(quiz);
     if (!quiz) {
       throw new NotFoundException('Quiz not found with this access code');
     }
@@ -84,11 +94,13 @@ export class StudentService {
 
     // Check if student is in the group
     const isStudentInGroup = group.students.some(
-      (student: any) => student.toString() === studentId
+      (student: any) => student.toString() === studentId,
     );
 
     if (!isStudentInGroup) {
-      throw new ForbiddenException('You are not authorized to access this quiz. You must be a member of the group.');
+      throw new ForbiddenException(
+        'You are not authorized to access this quiz. You must be a member of the group.',
+      );
     }
 
     // Return quiz details (without answers)
@@ -97,18 +109,18 @@ export class StudentService {
       group: quiz.group,
       scheduledAt: quiz.scheduledAt,
       isOver: quiz.isOver,
-      questions: quiz.questions.map(q => ({
+      questions: quiz.questions.map((q) => ({
         _id: q._id,
         text: q.text,
         type: q.type,
         points: q.points,
         isMath: q.isMath,
         isMultiTrue: q.isMultiTrue,
-        choices: q.choices.map(c => ({
+        choices: q.choices.map((c) => ({
           text: c.text,
           // Don't include isCorrect to prevent cheating
-        }))
-      }))
+        })),
+      })),
     };
   }
 }

@@ -14,7 +14,14 @@ import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { FindCourseDto } from './dto/find-course.dto';
 import { AdminGuard } from '../../guards/admin.guard';
-import { ApiTags, ApiBody, ApiParam, ApiQuery, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBody,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 
 @ApiTags('course')
 @Controller('course')
@@ -30,10 +37,25 @@ export class CourseController {
   }
 
   @Get()
-  @ApiQuery({ name: 'name', required: false, description: 'Filter courses by name' })
-  @ApiQuery({ name: 'year', required: false, description: 'Filter courses by year' })
-  @ApiQuery({ name: 'semester', required: false, description: 'Filter courses by semester' })
-  @ApiResponse({ status: 200, description: 'List of courses retrieved successfully' })
+  @ApiQuery({
+    name: 'name',
+    required: false,
+    description: 'Filter courses by name',
+  })
+  @ApiQuery({
+    name: 'year',
+    required: false,
+    description: 'Filter courses by year',
+  })
+  @ApiQuery({
+    name: 'semester',
+    required: false,
+    description: 'Filter courses by semester',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'List of courses retrieved successfully',
+  })
   findAll(@Query() query: FindCourseDto) {
     console.log('hit');
     return this.courseService.findAll(query);

@@ -21,7 +21,14 @@ import { multerConfig } from '../../config/multer.config';
 import { LoginTeacherDto } from './dto/login-teacher.dto';
 import { sign } from 'jsonwebtoken';
 import { UserType } from '../../entities/enums/user-type.enum';
-import { ApiTags, ApiBody, ApiParam, ApiQuery, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBody,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 
 @ApiTags('teachers')
 @Controller('teachers')
@@ -47,9 +54,20 @@ export class TeachersController {
   }
 
   @Get()
-  @ApiQuery({ name: 'name', required: false, description: 'Filter teachers by name' })
-  @ApiQuery({ name: 'email', required: false, description: 'Filter teachers by email' })
-  @ApiResponse({ status: 200, description: 'List of teachers retrieved successfully' })
+  @ApiQuery({
+    name: 'name',
+    required: false,
+    description: 'Filter teachers by name',
+  })
+  @ApiQuery({
+    name: 'email',
+    required: false,
+    description: 'Filter teachers by email',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'List of teachers retrieved successfully',
+  })
   async getTeachers(@Query() query: FilterQuery<Teacher> = {}) {
     return this.teachersService.getTeachers(query);
   }

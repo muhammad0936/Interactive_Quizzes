@@ -3,7 +3,11 @@ import { QuizRepository } from './quiz.repository';
 import { BaseService } from '../../common/base.service';
 import { Quiz } from '../../entities/quiz.entity';
 import { QuestionsService } from '../questions/questions.service';
-import { CreateAndAssignQuestionDto, AssignExistingQuestionsDto, BulkCreateQuestionsDto } from './dto/assign-question.dto';
+import {
+  CreateAndAssignQuestionDto,
+  AssignExistingQuestionsDto,
+  BulkCreateQuestionsDto,
+} from './dto/assign-question.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Question } from '../../entities/question.entity';
@@ -25,7 +29,7 @@ export class QuizService extends BaseService<Quiz> {
   async create({ group, scheduledAt }: CreateQuizDto): Promise<Quiz> {
     const isGroupExist = await this.groupRepo.exists({ _id: group });
     if (!isGroupExist) throw new Error('Group not found');
-    return this.repository.create({group, scheduledAt});
+    return this.repository.create({ group, scheduledAt });
   }
 
   async createAndAssignQuestion(dto: CreateAndAssignQuestionDto) {
@@ -50,7 +54,9 @@ export class QuizService extends BaseService<Quiz> {
   async assignExistingQuestions(dto: AssignExistingQuestionsDto) {
     const quiz = await this.quizModel.findById(dto.quizId);
     if (!quiz) throw new Error('Quiz not found');
-    const questions = await this.questionModel.find({ _id: { $in: dto.questionIds } });
+    const questions = await this.questionModel.find({
+      _id: { $in: dto.questionIds },
+    });
     quiz.questions.push(...questions);
     await quiz.save();
     return quiz;
@@ -60,7 +66,7 @@ export class QuizService extends BaseService<Quiz> {
     const quiz = await this.quizModel.findById(dto.quizId);
     if (!quiz) throw new Error('Quiz not found');
     const createdQuestions = await this.questionModel.insertMany(dto.questions);
-    quiz.questions.push(...createdQuestions.map(q => q.toObject()));
+    quiz.questions.push(...createdQuestions.map((q) => q.toObject()));
     await quiz.save();
     return quiz;
   }

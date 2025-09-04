@@ -41,27 +41,39 @@ export class QuizController {
 
   @Get()
   @UseGuards(TeacherGuard)
-  @ApiQuery({ name: 'group', required: false, description: 'Filter by group ID' })
-  @ApiQuery({ name: 'isOver', required: false, description: 'Filter by quiz status' })
-  @ApiQuery({ name: 'accessCode', required: false, description: 'Filter by access code' })
+  @ApiQuery({
+    name: 'group',
+    required: false,
+    description: 'Filter by group ID',
+  })
+  @ApiQuery({
+    name: 'isOver',
+    required: false,
+    description: 'Filter by quiz status',
+  })
+  @ApiQuery({
+    name: 'accessCode',
+    required: false,
+    description: 'Filter by access code',
+  })
   findAll(
     @Query('group') group?: string,
     @Query('isOver') isOver?: boolean,
     @Query('accessCode') accessCode?: string,
   ) {
     const query: FilterQuery<Quiz> = {};
-    
+
     if (group) query.group = group;
     if (isOver !== undefined) query.isOver = isOver;
     if (accessCode) query.accessCode = accessCode;
-    
+
     return this.quizService.findAll(query);
   }
 
   @Get(':id')
   @ApiParam({ name: 'id', description: 'Quiz ID' })
   async findOne(@Param('id') id: string): Promise<Quiz> {
-    const quiz = await this.quizService.findOne(id,'group questions');
+    const quiz = await this.quizService.findOne(id, 'group questions');
     if (quiz == null) {
       throw new NotFoundException('Quiz not found');
     }
@@ -83,9 +95,12 @@ export class QuizController {
 
   @Post('bulk-create-questions')
   @UseGuards(TeacherGuard)
-  @ApiBody({ type: BulkCreateQuestionsDto, description: 'Bulk questions creation data' })
+  @ApiBody({
+    type: BulkCreateQuestionsDto,
+    description: 'Bulk questions creation data',
+  })
   async bulkCreateQuestions(@Body() body: BulkCreateQuestionsDto) {
-    console.log(body)
+    console.log(body);
     return this.quizService.bulkCreateAndAssignQuestions(body);
   }
 }

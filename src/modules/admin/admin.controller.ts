@@ -48,8 +48,15 @@ export class AdminController {
   }
 
   @Get()
-  @ApiQuery({ name: 'name', required: false, description: 'Filter admins by name' })
-  @ApiResponse({ status: 200, description: 'List of admins retrieved successfully' })
+  @ApiQuery({
+    name: 'name',
+    required: false,
+    description: 'Filter admins by name',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'List of admins retrieved successfully',
+  })
   async getAdmins(@Query() { name }: GetAdminsFilterDto): Promise<Admin[]> {
     return this.adminService.getAdmins({ name });
   }

@@ -8,7 +8,7 @@ import { Quiz, QuizSchema } from '../../entities/quiz.entity';
 import { StudentRepository } from '../student/student.repository';
 import { Student, StudentSchema } from '../../entities/student.entity';
 import { Course, CourseSchema } from '../../entities/course.entity';
-import { Teacher, TeacherSchema } from '../../entities/teacher.entity'; 
+import { Teacher, TeacherSchema } from '../../entities/teacher.entity';
 
 @Module({
   imports: [
@@ -36,11 +36,7 @@ import { Teacher, TeacherSchema } from '../../entities/teacher.entity';
     ]),
   ],
   controllers: [GroupController],
-  providers: [
-    GroupService, 
-    GroupRepository,
-    StudentRepository
-  ],
-  exports: [StudentRepository]
+  providers: [GroupService, GroupRepository, StudentRepository],
+  exports: [StudentRepository],
 })
 export class GroupModule {}
