@@ -5,7 +5,7 @@ import { Student } from './student.entity';
 import { Quiz } from './quiz.entity';
 import { Types } from 'mongoose';
 
-@Schema({ collection: 'test_result' })
+@Schema({ collection: 'quiz_result' })
 export class QuizResult extends BaseEntity {
   @Prop({
     type: Types.ObjectId,
@@ -19,7 +19,7 @@ export class QuizResult extends BaseEntity {
     ref: Quiz.name,
     required: true,
   })
-  test: Quiz;
+  quiz: Quiz;
 
   @Prop({
     required: true,
