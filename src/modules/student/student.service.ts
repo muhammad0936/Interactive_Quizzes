@@ -118,7 +118,9 @@ export class StudentService {
         isMultiTrue: q.isMultiTrue,
         choices: q.choices.map((c) => ({
           text: c.text,
+          isCorrect: c.isCorrect,
           // Don't include isCorrect to prevent cheating
+          // We will include it :)
         })),
       })),
     };
